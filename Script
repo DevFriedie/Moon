@@ -13,8 +13,15 @@ local FiveNight = Rayfield:CreateWindow({
 
  --Values--
 
-
 --// Function
+Esp = function()
+	local Player = game:GetService("Players").LocalPlayer
+	local Character = Player.Character
+
+	for _, v in ipairs(Character:GetChildren()) do
+
+	end
+end
 NoClip = function()
 	local Player = game:GetService("Players").LocalPlayer
 	local Character = Player.Character
@@ -41,7 +48,9 @@ end
 	CurrentValue = 16,
 	Flag = "",
 	Callback = function(v)
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+		while task.wait(0.1) do
+			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+		end
 	end,
  })
 
@@ -60,11 +69,7 @@ end
  local Toggle = Tab:CreateToggle({
 	Name = "Esp",
 	Callback = function()
-        local Anim = Instance.new("Animation", game.Workspace)
-		Anim.Name = "gay"
-		Anim.AnimationId = "rbxassetid://282574440"
-		local track = game.Workspace.growagardenplay1108.Humanoid:LoadAnimation(Anim)
-		track:Play()
+		Esp()
 	end,
  })
 
