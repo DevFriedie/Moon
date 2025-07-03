@@ -5,7 +5,7 @@ local FiveNight = Rayfield:CreateWindow({
 	LoadingTitle = "Moon by the Sea",
 	LoadingSubtitle = "by DevFriedie",
 	ConfigurationSaving = {
-	   Enabled = true,
+	   Enabled = false,
 	   FolderName = FiveNight,
 	   FileName = "Moon by the Sea"
 	},
@@ -15,7 +15,14 @@ local FiveNight = Rayfield:CreateWindow({
 
 
 --// Function
+NoClip = function()
+	local Player = game:GetService("Players").LocalPlayer
+	local Character = Player.Character
 
+	for _, v in ipairs(Character:GetChildren()) do
+
+	end
+end
 
 --// Teleport
 
@@ -53,16 +60,20 @@ local FiveNight = Rayfield:CreateWindow({
  local Toggle = Tab:CreateToggle({
 	Name = "Esp",
 	Callback = function()
-
+        local Anim = Instance.new("Animation", game.Workspace)
+		Anim.Name = "gay"
+		Anim.AnimationId = "rbxassetid://282574440"
+		local track = game.Workspace.growagardenplay1108.Humanoid:LoadAnimation(Anim)
+		track:Play()
 	end,
  })
 
  local Toggle = Tab:CreateToggle({
     Name = "NoClip",
     CurrentValue = false,
-    Flag = "Toggle1",
+    Flag = "",
     Callback = function()
-
+		NoClip()
     end,
 })
 
