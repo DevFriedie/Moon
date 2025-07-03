@@ -1,0 +1,293 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local FiveNight = Rayfield:CreateWindow({
+	Name = "FiveNight Hub 💫 | Project Slayers",
+	LoadingTitle = "FiveNight Hub 💫 | Project Slayers",
+	LoadingSubtitle = "by DevFriedie",
+	ConfigurationSaving = {
+	   Enabled = true,
+	   FolderName = FiveNight,
+	   FileName = "FiveNight Hub"
+	},
+	Discord = {
+	   Enabled = false,
+	   Invite = "",
+	   RememberJoins = true
+	},
+	KeySystem = true,
+	KeySettings = {
+	   Title = "FiveNight Hub 💫 | Project Slayers",
+	   Subtitle = "",
+	   Note = "Discord | Friedie",
+	   FileName = "FiveNightKey",
+	   SaveKey = true,
+	   GrabKeyFromSite = false,
+	   Key = "37820958560987234570"
+	}
+
+ })
+
+ Rayfield:Notify({
+	Title = "⚠️",
+	Content = "Only use Fluxus as executor!",
+	Duration = 6.5,
+	Actions = { 
+	   Ignore = {
+		  Name = "Okay!",
+		  Callback = function()
+		  print("The user tapped Okay!")
+	   end
+	},
+ },
+ })
+
+ --Values--
+ getgenv().DarkDex = true
+ getgenv().TurtleSpy = true
+ getgenv().GodMode = true
+ getgenv().Esp = true
+ getgenv().Fly = true
+ getgenv().NoClip = true
+
+ --Function--
+
+function DarkDex()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
+end
+
+function TurtleSpy()
+	loadstring(game:HttpGet("https://pastebin.com/raw/BDhSQqUU", true))()
+end
+
+function Esp()
+	local esp_settings = {
+    textsize = 8,
+    colour = 255,255,255
+}
+ 
+local gui = Instance.new("BillboardGui")
+local esp = Instance.new("TextLabel",gui)
+ 
+ 
+ 
+gui.Name = "Esp";
+gui.ResetOnSpawn = false
+gui.AlwaysOnTop = true;
+gui.LightInfluence = 0;
+gui.Size = UDim2.new(1.75, 0, 1.75, 0);
+esp.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+esp.Text = ""
+esp.Size = UDim2.new(0.0001, 0.00001, 0.0001, 0.00001);
+esp.BorderSizePixel = 4;
+esp.BorderColor3 = Color3.new(esp_settings.colour)
+esp.BorderSizePixel = 0
+esp.Font = "GothamSemibold"
+esp.TextSize = esp_settings.textsize
+esp.TextColor3 = Color3.fromRGB(esp_settings.colour)
+ 
+game:GetService("RunService").RenderStepped:Connect(function()
+    for i,v in pairs (game:GetService("Players"):GetPlayers()) do
+        if v ~= game:GetService("Players").LocalPlayer and v.Character.Head:FindFirstChild("Esp")==nil  then
+            esp.Text = "{"..v.Name.."}"
+            gui:Clone().Parent = v.Character.Head
+    end
+end
+end)
+	
+end
+
+function NoClip()
+
+end
+
+ --Teleport--
+
+
+
+ --Tabs--
+
+ local Tab = FiveNight:CreateTab("Main")
+
+ local Section = Tab:CreateSection("Main Settings")
+
+ local Slider = Tab:CreateSlider({
+	Name = "WalkSpeed",
+	Range = {16, 250},
+	Increment = 10,
+	Suffix = "WalkSpeed",
+	CurrentValue = 10,
+	Flag = "",
+	Callback = function(v)
+		getgenv().game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+	end,
+ })
+
+ local Slider = Tab:CreateSlider({
+	Name = "JumpPower",
+	Range = {50, 500},
+	Increment = 10,
+	Suffix = "JumpPower",
+	CurrentValue = 10,
+	Flag = "", 
+	Callback = function(v)
+		getgenv().game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+	end,
+ })
+
+ local Toggle = Tab:CreateToggle({
+    Name = "GodMode + ShockWave Mastery 50",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(state)
+        if state then
+			_G.loop = true
+		while _G.loop == true do wait()
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer("skil_ting_asd",game:GetService("Players").LocalPlayer,"akaza_bda_compass_needle",1)
+		end
+	else
+		_G.loop = false
+				while _G.loop == true do wait()
+					print('STOP')
+				end
+	end
+    end,
+})
+
+ local Toggle = Tab:CreateToggle({
+	Name = "Esp",
+	Callback = function()
+	Esp()
+	end,
+ })
+
+ local Toggle = Tab:CreateToggle({
+    Name = "NoClip",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function()
+	NoClip()
+    end,
+})
+
+ local Toggle = Tab:CreateToggle({
+    Name = "AntiIdle",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(state)
+		if state then
+			_G.loop = true
+		while _G.loop == true do wait()
+			game:GetService("Players").LocalPlayer.Idled:connect(function()
+				game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+		end)
+	end
+	else
+		_G.loop = false
+				while _G.loop == true do wait()
+					print('STOP')
+				end
+	end
+	end,
+ })
+
+ local Input = Tab:CreateInput({
+	Name = "Change Clan",
+	PlaceholderText = "What Clan?",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+		game.ReplicatedStorage.Player_Data.DevFriedie4.Clan.Value = Text;
+	end,
+ })
+
+ local Button = Tab:CreateButton({
+	Name = "DarkDex",
+	Callback = function()
+	DarkDex()
+	end,
+ })
+
+ local Button = Tab:CreateButton({
+	Name = "TurtleSpy",
+	Callback = function()
+	TurtleSpy()
+	end,
+ })
+
+ local Button = Tab:CreateButton({
+	Name = "Destroy Interface",
+	Callback = function()
+		Rayfield:Destroy()
+	end,
+ })
+
+ local Tab = FiveNight:CreateTab("AutoFarm")
+
+ local Section = Tab:CreateSection("AutoFarm Settings")
+
+ local Toggle = Tab:CreateToggle({
+    Name = "AutoFarm",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(state)
+	if state then
+		_G.loop = true
+	while _G.loop == true do task.wait()
+		game:GetService("VirtualUser"):ClickButton1(Vector2.new(9e9, 9e9))
+
+	Bandit = game.Workspace.Mobs.Bandits.Zone1.Bandit["Zoku's Subordinate"]:FindFirstChild('HumanoidRootPart')
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Bandit.CFrame + Vector3.new(0, 0, 0)
+
+	for i,v in pairs(game.Workspace:GetChildren()) do
+		if v:IsA("HumanoidRootPart") and v.Name == "Zoku's Subordinate" then
+		   v.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 0)
+		   v.UpperTorso.Anchored = true
+		   v.LowerTorso.Anchored = true
+		end
+	 end
+	end
+else
+	_G.loop = false
+			while _G.loop == true do task.wait()
+				print('STOP')
+			end
+	end
+    end,
+})
+
+ local Tab = FiveNight:CreateTab("Teleport")
+
+ local Section = Tab:CreateSection("Teleport Settings")
+
+ local Button = Tab:CreateButton({
+	Name = "Kiribating Village",
+	Callback = function()
+			local lp = game.Players.LocalPlayer
+			local char = lp.Character
+			function bypassTP(cf, t)
+				local hrp = char.PrimaryPart
+				local ts = game:GetService('TweenService')
+				ts:Create(hrp,
+				TweenInfo.new(t, Enum["EasingStyle"].Linear),
+				{CFrame = cf
+				}):Play()
+			end
+			bypassTP(CFrame.new(123.877998, 282.207642, -1624.75195, 0.481315196, -1.9170189e-08, 0.876547575, -1.84944671e-09, 1, 2.28856436e-08, -0.876547575, -1.26363364e-08, 0.481315196), 7)
+	end,
+ })
+
+ local Button = Tab:CreateButton({
+	Name = "2 Village",
+	Callback = function()
+			local lp = game.Players.LocalPlayer
+			local char = lp.Character
+			function bypassTP(cf, t)
+				local hrp = char.PrimaryPart
+				local ts = game:GetService('TweenService')
+				ts:Create(hrp,
+				TweenInfo.new(t, Enum["EasingStyle"].Linear),
+				{CFrame = cf
+				}):Play()
+			end
+			bypassTP(CFrame.new(-833.209961, -3.78197479, 1628.13696, 1, 0, 0, 0, 1, 0, 0, 0, 1), 7)
+	end,
+ })
