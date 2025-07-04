@@ -63,7 +63,9 @@ local Slider = Tab:CreateSlider({
 	CurrentValue = 16,
 	Flag = "Slider1",
 	Callback = function(Value)
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+		while wait(0.01) do
+		    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+		end
 	end,
 })
 
@@ -75,7 +77,9 @@ local Slider = Tab:CreateSlider({
 	CurrentValue = 50,
 	Flag = "Slider1",
 	Callback = function(Value)
-		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+		while wait(0.01) do
+		    game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+		end
 	end,
 })
 
@@ -147,10 +151,9 @@ local Button = Tab:CreateButton({
 	Callback = function()
 		local Player = game:GetService("Players").LocalPlayer
 		local Character = Player.Character
-	    local Plot = GetPlot(Player)
-	    local Direction = game.Workspace.Plots[Plot.Name].DeliveryHitbox.CFrame * CFrame.new(0, 173, 0)
-	    Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame * CFrame.new(0, 173, 0)
-		
+		local Plot = GetPlot(Player)
+		local Direction = game.Workspace.Plots[Plot.Name].DeliveryHitbox.CFrame * CFrame.new(0, 173, 0)
+		Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame * CFrame.new(0, 173, 0)
 		wait(1)
 		Character.Humanoid:MoveTo(Direction.Position)
 		Character.Humanoid.MoveToFinished:Connect(function()
