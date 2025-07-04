@@ -1,192 +1,163 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
-local FiveNight = Rayfield:CreateWindow({
-	Name = "Moon by the Sea",
-	LoadingTitle = "Moon by the Sea",
-	LoadingSubtitle = "by DevFriedie",
+local Window = Rayfield:CreateWindow({
+	Name = "Moon",
+	Icon = 0,
+	LoadingTitle = "Moon",
+	LoadingSubtitle = "by Friedie",
+	ShowText = "Rayfield",
+	Theme = "Default",
+
+	ToggleUIKeybind = "K",
+
+	DisableRayfieldPrompts = false,
+	DisableBuildWarnings = false,
+
 	ConfigurationSaving = {
-	   Enabled = false,
-	   FolderName = FiveNight,
-	   FileName = "Moon by the Sea"
+		Enabled = false,
+		FolderName = nil,
+		FileName = "Moon",
 	},
- })
 
---// Values
-local FarmLukasDebounce = false
+	Discord = {
+		Enabled = false,
+		Invite = "noinvitelink",
+		RememberJoins = false,
+	},
 
---// Function
-Esp = function()
-	local Player = game:GetService("Players").LocalPlayer
-	local Character = Player.Character
+	KeySystem = false,
+	KeySettings = {
+		Title = "Untitled",
+		Subtitle = "Key System",
+		Note = "No method of obtaining the key is provided",
+		FileName = "Key",
+		SaveKey = true,
+		GrabKeyFromSite = false,
+		Key = { "Hello" },
+	},
+})
 
-	for _, v in ipairs(Character:GetChildren()) do
-
+--// Functions
+function GetPlot(Player)
+	for _, v in ipairs(workspace.Plots:GetChildren()) do
+		if v.PlotSign.SurfaceGui.Frame.TextLabel then
+			local TextLabel = v.PlotSign.SurfaceGui.Frame.TextLabel
+			local TextLabelSub = string.gsub(TextLabel.Text, "'s Base", "")
+			if TextLabelSub == Player.Name then
+				return v
+			end
+		end
 	end
 end
-NoClip = function()
-	local Player = game:GetService("Players").LocalPlayer
-	local Character = Player.Character
-
-	for _, v in ipairs(Character:GetChildren()) do
-
-	end
-end
-
---// Teleport
-
 
 --// Tabs
+local Tab = Window:CreateTab("Main", "rewind")
 
- local Tab = FiveNight:CreateTab("Main")
+local Section = Tab:CreateSection("Misc")
 
- local Section = Tab:CreateSection("Main Settings")
-
- local Slider = Tab:CreateSlider({
+local Slider = Tab:CreateSlider({
 	Name = "WalkSpeed",
-	Range = {16, 250},
-	Increment = 10,
+	Range = { 16, 250 },
+	Increment = 1,
 	Suffix = "WalkSpeed",
 	CurrentValue = 16,
-	Flag = "",
-	Callback = function(v)
-		while true do
-			wait(0.1)
-			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
-		end
+	Flag = "Slider1",
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
 	end,
- })
+})
 
- local Slider = Tab:CreateSlider({
+local Slider = Tab:CreateSlider({
 	Name = "JumpPower",
-	Range = {50, 500},
-	Increment = 10,
+	Range = { 50, 500 },
+	Increment = 1,
 	Suffix = "JumpPower",
 	CurrentValue = 50,
-	Flag = "", 
-	Callback = function(v)
-		game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+	Flag = "Slider1",
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
 	end,
- })
-
- local Toggle = Tab:CreateToggle({
-	Name = "Esp",
-	Callback = function()
-		Esp()
-	end,
- })
-
- local Toggle = Tab:CreateToggle({
-    Name = "NoClip",
-    CurrentValue = false,
-    Flag = "",
-    Callback = function()
-		NoClip()
-    end,
 })
 
 local Button = Tab:CreateButton({
-	Name = "Farm Lukas",
+	Name = "Esp",
 	Callback = function()
-		if FarmLukasDebounce == false then
-			FarmLukasDebounce = true
-			while true do
-			local Player = game:GetService("Players").LocalPlayer
-			local Character = Player.Character
-			Character.HumanoidRootPart.CFrame = game.Workspace.Entities.JuForce2020.HumanoidRootPart.CFrame * CFrame.new(Vector3.new(0, 0, 7))
-			if FarmLukasDebounce == false then break end
+		for _, Player in pairs(game.Players:GetPlayers()) do
+			if Player.Name ~= game:GetService("Players").LocalPlayer.Name then
+				local Character = Player.Character
+
+				if not Character.Head:FindFirstChild("Esp") then
+					local BillboardGui = Instance.new("BillboardGui")
+					local TextLabel = Instance.new("TextLabel")
+					BillboardGui.Name = "Esp"
+					BillboardGui.Parent = Character.Head
+					BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+					BillboardGui.Active = true
+					BillboardGui.AlwaysOnTop = true
+					BillboardGui.LightInfluence = 1.000
+					BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
+					BillboardGui.Size = UDim2.new(5, 0, 2, 0)
+					BillboardGui.Adornee = Character
+
+					TextLabel.Parent = BillboardGui
+					TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					TextLabel.BackgroundTransparency = 1.000
+					TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					TextLabel.BorderSizePixel = 0
+					TextLabel.Size = UDim2.new(1, 0, 1, 0)
+					TextLabel.Font = Enum.Font.SourceSans
+					TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+					TextLabel.TextScaled = true
+					TextLabel.TextSize = 14.000
+					TextLabel.TextStrokeTransparency = 0.500
+					TextLabel.TextWrapped = true
+					TextLabel.Text = Player.Name
+				end
+
+				if not Character:FindFirstChild("Esp") then
+					local Highlight = Instance.new("Highlight")
+					Highlight.Name = "Esp"
+					Highlight.Parent = Character
+					Highlight.OutlineColor = Color3.fromRGB(255, 0, 0)
+					Highlight.Adornee = Character
+				end
 			end
 		end
-		elseif FarmLukasDebounce == true then
-FarmLukasDebounce = false
-		end
-	end
-end
-})
-
-local Input = Tab:CreateInput({
-	Name = "Input",
-	PlaceholderText = "Input",
-	RemoveTextAfterFocusLost = false,
-	Callback = function(Text)
-		game.ReplicatedStorage.Player_Data.DevFriedie4.Clan.Value = Text;
 	end,
 })
 
- local DestroyButton = Tab:CreateButton({
-	Name = "Destroy Interface",
+local Button = Tab:CreateButton({
+	Name = "NoClip",
+	Callback = function() end,
+})
+
+local Button = Tab:CreateButton({
+	Name = "Destroy",
 	Callback = function()
 		Rayfield:Destroy()
 	end,
- })
-
- local Tab = FiveNight:CreateTab("AutoFarm")
-
- local Section = Tab:CreateSection("AutoFarm Settings")
-
- local Toggle = Tab:CreateToggle({
-    Name = "AutoFarm",
-    CurrentValue = false,
-    Flag = "Toggle1",
-    Callback = function()
-
-    end,
 })
 
- local Tab = FiveNight:CreateTab("Teleport")
+local Tab = Window:CreateTab("Steal A Brainrot", "rewind")
 
- local Section = Tab:CreateSection("Teleport Settings")
+local Section = Tab:CreateSection("Misc")
 
- local Button = Tab:CreateButton({
-	Name = "Random",
+local Button = Tab:CreateButton({
+	Name = "Steal",
 	Callback = function()
-		local players = game:GetService('Players')
-local lplr = players.LocalPlayer
-local lastCF, stop, heartbeatConnection
-local function start()
-    heartbeatConnection = game:GetService('RunService').Heartbeat:Connect(function()
-        if stop then
-            return 
-        end 
-        lastCF = lplr.Character:FindFirstChildOfClass('Humanoid').RootPart.CFrame
-    end)
-    lplr.Character:FindFirstChildOfClass('Humanoid').RootPart:GetPropertyChangedSignal('CFrame'):Connect(function()
-        stop = true
-        lplr.Character:FindFirstChildOfClass('Humanoid').RootPart.CFrame = lastCF
-        game:GetService('RunService').Heartbeat:Wait()
-        stop = false
-    end)    
-    lplr.Character:FindFirstChildOfClass('Humanoid').Died:Connect(function()
-        heartbeatConnection:Disconnect()
-    end)
-end
-
-lplr.CharacterAdded:Connect(function(character)
-    repeat 
-        game:GetService('RunService').Heartbeat:Wait() 
-    until character:FindFirstChildOfClass('Humanoid')
-    repeat 
-        game:GetService('RunService').Heartbeat:Wait() 
-    until character:FindFirstChildOfClass('Humanoid').RootPart
-    start()
-end)
-
-lplr.CharacterRemoving:Connect(function()
-    heartbeatConnection:Disconnect()
-end)
-
-start()
-			local lp = game.Players.LocalPlayer
-			local char = lp.Character
-			function bypassTP(cf, t)
-				local hrp = char.PrimaryPart
-				local ts = game:GetService('TweenService')
-				ts:Create(hrp,
-				TweenInfo.new(t, Enum["EasingStyle"].Linear),
-				{CFrame = cf
-				}):Play()
-			end
-			bypassTP(CFrame.new(-409.58844, -6.50197887, -128.096161), 3)
+		local Player = game:GetService("Players").LocalPlayer
+		local Character = Player.Character
+	    local Plot = GetPlot(Player)
+	    local Direction = game.Workspace.Plots[Plot.Name].DeliveryHitbox.CFrame * CFrame.new(0, 173, 0)
+	    Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame * CFrame.new(0, 173, 0)
+		
+		wait(1)
+		Character.Humanoid:MoveTo(Direction.Position)
+		Character.Humanoid.MoveToFinished:Connect(function()
+			wait(1)
+			Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame * CFrame.new(Vector3.new(0, -50, 0))
+		end)
 	end,
- })
+})
 
--- loadstring(game:HttpGet("https://raw.githubusercontent.com/DevFriedie/Moon/refs/heads/main/Script"))()
+--// loadstring(game:HttpGet("https://raw.githubusercontent.com/DevFriedie/Moon/refs/heads/main/Script"))()
