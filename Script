@@ -158,10 +158,11 @@ local Button = Tab:CreateButton({
 		Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame * CFrame.new(0, 173, 0)
 		wait(1)
 		Character.Humanoid:MoveTo(Direction.Position)
-		Character.Humanoid.MoveToFinished:Connect(function()
-			wait(1)
-			Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame * CFrame.new(Vector3.new(0, -50, 0))
-		end)
+		while (Character.HumanoidRootPart.Position - Direction.Position).Magnitude > 1 do
+			wait()
+		end
+		wait(1)
+		Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame * CFrame.new(Vector3.new(0, -50, 0))
 	end,
 })
 
