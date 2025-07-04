@@ -61,10 +61,10 @@ local Slider = Tab:CreateSlider({
 	Increment = 1,
 	Suffix = "WalkSpeed",
 	CurrentValue = 16,
-	Flag = "Slider1",
+	Flag = "",
 	Callback = function(Value)
 		while true do
-			wait(0.01)
+			wait(0.1)
 			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
 		end
 	end,
@@ -76,10 +76,10 @@ local Slider = Tab:CreateSlider({
 	Increment = 1,
 	Suffix = "JumpPower",
 	CurrentValue = 50,
-	Flag = "Slider1",
+	Flag = "",
 	Callback = function(Value)
 		while true do
-			wait(0.01)
+			wait(0.1)
 			game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
 		end
 	end,
