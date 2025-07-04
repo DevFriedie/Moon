@@ -65,7 +65,9 @@ local Slider = Tab:CreateSlider({
 	Callback = function(Value)
 		while true do
 			wait(0.1)
-			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+			if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+				game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+			end
 		end
 	end,
 })
@@ -80,7 +82,9 @@ local Slider = Tab:CreateSlider({
 	Callback = function(Value)
 		while true do
 			wait(0.1)
-			game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+			if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+				game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+			end
 		end
 	end,
 })
@@ -159,7 +163,7 @@ local Button = Tab:CreateButton({
 		wait(1)
 		Character.Humanoid:MoveTo(Direction.Position)
 		Character.Humanoid.MoveToFinished:Connect(function()
-			if (Character.HumanoidRootPart.Position - Direction.Position).Magnitude < 1 then
+			if (Character.HumanoidRootPart.Position - Direction.Position).Magnitude < 3 then
 				wait(1)
 				Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame * CFrame.new(0, -50, 0)
 			else
