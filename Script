@@ -51,11 +51,11 @@ function GetPlot(Player)
 end
 
 --// Tabs
-local Tab = Window:CreateTab("Main", "rewind")
+local Tab1 = Window:CreateTab("Main", "rewind")
 
-local Section = Tab:CreateSection("Misc")
+local Section1 = Tab1:CreateSection("Misc")
 
-local Slider = Tab:CreateSlider({
+local SliderWalkSpeed = Tab1:CreateSlider({
 	Name = "WalkSpeed",
 	Range = { 16, 250 },
 	Increment = 1,
@@ -63,16 +63,11 @@ local Slider = Tab:CreateSlider({
 	CurrentValue = 16,
 	Flag = "",
 	Callback = function(Value)
-		while true do
-			wait(0.1)
-			if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
-				game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
-			end
-		end
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
 	end,
 })
 
-local Slider = Tab:CreateSlider({
+local SliderJumpPower = Tab1:CreateSlider({
 	Name = "JumpPower",
 	Range = { 50, 500 },
 	Increment = 1,
@@ -80,17 +75,11 @@ local Slider = Tab:CreateSlider({
 	CurrentValue = 50,
 	Flag = "",
 	Callback = function(Value)
-		while true do
-			wait(0.1)
-			if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
-				game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
-				game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
-			end
-		end
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
 	end,
 })
 
-local Button = Tab:CreateButton({
+local ButtonEsp = Tab1:CreateButton({
 	Name = "Esp",
 	Callback = function()
 		for _, Player in pairs(game.Players:GetPlayers()) do
@@ -137,23 +126,23 @@ local Button = Tab:CreateButton({
 	end,
 })
 
-local Button = Tab:CreateButton({
+local ButtonNoClip = Tab1:CreateButton({
 	Name = "NoClip",
 	Callback = function() end,
 })
 
-local Button = Tab:CreateButton({
+local ButtonDestroy = Tab1:CreateButton({
 	Name = "Destroy",
 	Callback = function()
 		Rayfield:Destroy()
 	end,
 })
 
-local Tab = Window:CreateTab("Steal A Brainrot", "rewind")
+local Tab2 = Window:CreateTab("Steal A Brainrot", "rewind")
 
-local Section = Tab:CreateSection("Misc")
+local Section2 = Tab2:CreateSection("Misc")
 
-local Keybind = Tab:CreateKeybind({
+local KeybindSteal = Tab2:CreateKeybind({
 	Name = "Steal",
 	CurrentKeybind = "F",
 	HoldToInteract = false,
@@ -177,7 +166,7 @@ local Keybind = Tab:CreateKeybind({
 	end,
 })
 
-local Toggle = Tab:CreateToggle({
+local ButtonBoost = Tab2:CreateButton({
 	Name = "Boost",
 	Callback = function()
 		local Player = game:GetService("Players").LocalPlayer
@@ -185,16 +174,8 @@ local Toggle = Tab:CreateToggle({
 		while true do
 			wait(0.1)
 			if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
-				game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+				game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 50
 			end
 		end
 	end,
-})
-
-local Keybind = Tab:CreateKeybind({
-	Name = "Keybind Example",
-	CurrentKeybind = "Q",
-	HoldToInteract = false,
-	Flag = "Keybind1",
-	Callback = function(Keybind) end,
 })
