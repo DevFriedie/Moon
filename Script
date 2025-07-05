@@ -153,7 +153,7 @@ local Tab = Window:CreateTab("Steal A Brainrot", "rewind")
 
 local Section = Tab:CreateSection("Misc")
 
-local Keybind  = Tab:CreateKeybind({
+local Keybind = Tab:CreateKeybind({
 	Name = "Steal",
 	CurrentKeybind = "F",
 	HoldToInteract = false,
@@ -191,4 +191,10 @@ local Toggle = Tab:CreateToggle({
 	end,
 })
 
---// loadstring(game:HttpGet("https://raw.githubusercontent.com/DevFriedie/Moon/refs/heads/main/Script"))()
+local Keybind = Tab:CreateKeybind({
+	Name = "Keybind Example",
+	CurrentKeybind = "Q",
+	HoldToInteract = false,
+	Flag = "Keybind1",
+	Callback = function(Keybind) end,
+})
