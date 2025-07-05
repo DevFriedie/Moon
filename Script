@@ -83,6 +83,7 @@ local Slider = Tab:CreateSlider({
 		while true do
 			wait(0.1)
 			if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+				game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
 				game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
 			end
 		end
@@ -152,8 +153,11 @@ local Tab = Window:CreateTab("Steal A Brainrot", "rewind")
 
 local Section = Tab:CreateSection("Misc")
 
-local Button = Tab:CreateButton({
+local Keybind  = Tab:CreateKeybind({
 	Name = "Steal",
+	CurrentKeybind = "F",
+	HoldToInteract = false,
+	Flag = "",
 	Callback = function()
 		local Player = game:GetService("Players").LocalPlayer
 		local Character = Player.Character
@@ -170,6 +174,20 @@ local Button = Tab:CreateButton({
 				Character.Humanoid:MoveTo(Direction.Position)
 			end
 		end)
+	end,
+})
+
+local Toggle = Tab:CreateToggle({
+	Name = "Boost",
+	Callback = function()
+		local Player = game:GetService("Players").LocalPlayer
+		local Character = Player.Character
+		while true do
+			wait(0.1)
+			if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+				game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+			end
+		end
 	end,
 })
 
