@@ -37,21 +37,13 @@ local Window = Rayfield:CreateWindow({
 	},
 })
 
+--// Variables
+local Steal = false
+
 --// Functions
-function GetPlot(Player)
-	for _, v in ipairs(workspace.Plots:GetChildren()) do
-		if v.PlotSign.SurfaceGui.Frame.TextLabel then
-			local TextLabel = v.PlotSign.SurfaceGui.Frame.TextLabel
-			local TextLabelSub = string.gsub(TextLabel.Text, "'s Base", "")
-			if TextLabelSub == Player.Name then
-				return v
-			end
-		end
-	end
-end
 
 --// Tabs
-local Tab1 = Window:CreateTab("Main", "rewind")
+local Tab1 = Window:CreateTab("Main", "")
 
 local Section1 = Tab1:CreateSection("Misc")
 
@@ -82,49 +74,47 @@ local SliderJumpPower = Tab1:CreateSlider({
 local ButtonEsp = Tab1:CreateButton({
 	Name = "Esp",
 	Callback = function()
-		coroutine.wrap(function()
-			for _, Player in pairs(game.Players:GetPlayers()) do
-				if Player.Name ~= game:GetService("Players").LocalPlayer.Name then
-					local Character = Player.Character
+		for _, Player in pairs(game.Players:GetPlayers()) do
+			if Player.Name ~= game:GetService("Players").LocalPlayer.Name then
+				local Character = Player.Character
 
-					if not Character.Head:FindFirstChild("Esp") then
-						local BillboardGui = Instance.new("BillboardGui")
-						local TextLabel = Instance.new("TextLabel")
-						BillboardGui.Name = "Esp"
-						BillboardGui.Parent = Character.Head
-						BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-						BillboardGui.Active = true
-						BillboardGui.AlwaysOnTop = true
-						BillboardGui.LightInfluence = 1.000
-						BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
-						BillboardGui.Size = UDim2.new(5, 0, 2, 0)
-						BillboardGui.Adornee = Character
+				if not Character.Head:FindFirstChild("Esp") then
+					local BillboardGui = Instance.new("BillboardGui")
+					local TextLabel = Instance.new("TextLabel")
+					BillboardGui.Name = "Esp"
+					BillboardGui.Parent = game:GetService("ReplicatedFirst")
+					BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+					BillboardGui.Active = true
+					BillboardGui.AlwaysOnTop = true
+					BillboardGui.LightInfluence = 1.000
+					BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
+					BillboardGui.Size = UDim2.new(5, 0, 2, 0)
+					BillboardGui.Adornee = Character
 
-						TextLabel.Parent = BillboardGui
-						TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-						TextLabel.BackgroundTransparency = 1.000
-						TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-						TextLabel.BorderSizePixel = 0
-						TextLabel.Size = UDim2.new(1, 0, 1, 0)
-						TextLabel.Font = Enum.Font.SourceSans
-						TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
-						TextLabel.TextScaled = true
-						TextLabel.TextSize = 14.000
-						TextLabel.TextStrokeTransparency = 0.500
-						TextLabel.TextWrapped = true
-						TextLabel.Text = Player.Name
-					end
+					TextLabel.Parent = BillboardGui
+					TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					TextLabel.BackgroundTransparency = 1.000
+					TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					TextLabel.BorderSizePixel = 0
+					TextLabel.Size = UDim2.new(1, 0, 1, 0)
+					TextLabel.Font = Enum.Font.SourceSans
+					TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+					TextLabel.TextScaled = true
+					TextLabel.TextSize = 14.000
+					TextLabel.TextStrokeTransparency = 0.500
+					TextLabel.TextWrapped = true
+					TextLabel.Text = Player.Name
+				end
 
-					if not Character:FindFirstChild("Esp") then
-						local Highlight = Instance.new("Highlight")
-						Highlight.Name = "Esp"
-						Highlight.Parent = Character
-						Highlight.OutlineColor = Color3.fromRGB(255, 0, 0)
-						Highlight.Adornee = Character
-					end
+				if not Character:FindFirstChild("Esp") then
+					local Highlight = Instance.new("Highlight")
+					Highlight.Name = "Esp"
+					Highlight.Parent = Character
+					Highlight.OutlineColor = Color3.fromRGB(255, 0, 0)
+					Highlight.Adornee = game:GetService("ReplicatedFirst")
 				end
 			end
-		end)()
+		end
 	end,
 })
 
@@ -140,7 +130,7 @@ local ButtonDestroy = Tab1:CreateButton({
 	end,
 })
 
-local Tab2 = Window:CreateTab("Steal A Brainrot", "rewind")
+local Tab2 = Window:CreateTab("Steal A Brainrot", "")
 
 local Section2 = Tab2:CreateSection("Misc")
 
@@ -150,23 +140,15 @@ local KeybindSteal = Tab2:CreateKeybind({
 	HoldToInteract = false,
 	Flag = "",
 	Callback = function()
-		coroutine.wrap(function()
-			local Player = game:GetService("Players").LocalPlayer
-			local Character = Player.Character
-			local Plot = GetPlot(Player)
-			local Direction = game.Workspace.Plots[Plot.Name].DeliveryHitbox.CFrame * CFrame.new(0, 173, 0)
+		local Player = game:GetService("Players").LocalPlayer
+		local Character = Player.Character
+		if Steal == false then
+			Steal = true
 			Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame * CFrame.new(0, 173, 0)
-			wait(1)
-			Character.Humanoid:MoveTo(Direction.Position)
-			Character.Humanoid.MoveToFinished:Connect(function()
-				if (Character.HumanoidRootPart.Position - Direction.Position).Magnitude < 3 then
-					wait(1)
-					Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame * CFrame.new(0, -50, 0)
-				else
-					Character.Humanoid:MoveTo(Direction.Position)
-				end
-			end)
-		end)()
+		elseif Steal == true then
+			Steal = false
+			Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame * CFrame.new(0, -50, 0)
+		end
 	end,
 })
 
@@ -175,13 +157,11 @@ local ButtonBoost = Tab2:CreateButton({
 	Callback = function()
 		local Player = game:GetService("Players").LocalPlayer
 		local Character = Player.Character
-		coroutine.wrap(function()
-			while true do
-				wait(0.1)
-				if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
-					game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 50
-				end
+		while true do
+			wait(0.01)
+			if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+				game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 50
 			end
-		end)()
+		end
 	end,
 })
