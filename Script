@@ -43,7 +43,7 @@ local Steal = false
 --// Functions
 
 --// Tabs
-local Tab1 = Window:CreateTab("Main")
+local Tab1 = Window:CreateTab("Main", "rewind")
 
 local Section1 = Tab1:CreateSection("Misc")
 
@@ -130,7 +130,7 @@ local ButtonDestroy = Tab1:CreateButton({
 	end,
 })
 
-local Tab2 = Window:CreateTab("Steal A Brainrot")
+local Tab2 = Window:CreateTab("Steal A Brainrot", "rewind")
 
 local Section2 = Tab2:CreateSection("Misc")
 
