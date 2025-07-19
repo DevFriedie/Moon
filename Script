@@ -172,7 +172,7 @@ local Section2 = Tab2:CreateSection("Misc")
 
 local KeybindSteal = Tab2:CreateKeybind({
 	Name = "Red/Green Light",
-	CurrentKeybind = "F",
+	CurrentKeybind = "G",
 	HoldToInteract = false,
 	Flag = "",
 	Callback = function()
