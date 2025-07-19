@@ -165,3 +165,20 @@ local ButtonBoost = Tab2:CreateButton({
 		end
 	end,
 })
+
+local Tab2 = Window:CreateTab("Ink Game", "rewind")
+
+local Section2 = Tab2:CreateSection("Misc")
+
+local KeybindSteal = Tab2:CreateKeybind({
+	Name = "Red/Green Light",
+	CurrentKeybind = "F",
+	HoldToInteract = false,
+	Flag = "",
+	Callback = function()
+		local Player = game:GetService("Players").LocalPlayer
+		local Character = Player.Character
+		Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame
+			+ Character.HumanoidRootPart.CFrame.LookVector * 25
+	end,
+})
