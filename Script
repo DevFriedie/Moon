@@ -118,6 +118,13 @@ local ButtonEsp = Tab1:CreateButton({
 	end,
 })
 
+local ButtonAntiVc = Tab1:CreateButton({
+	Name = "Bypass Voice Chat Ban",
+	Callback = function()
+		game:GetService("VoiceChatService"):joinVoice()
+	end,
+})
+
 local ButtonNoClip = Tab1:CreateButton({
 	Name = "NoClip",
 	Callback = function() end,
