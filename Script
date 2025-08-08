@@ -67,6 +67,7 @@ local SliderJumpPower = Tab1:CreateSlider({
 	CurrentValue = 50,
 	Flag = "",
 	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
 	end,
 })
