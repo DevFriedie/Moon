@@ -1,4 +1,4 @@
-local Player = game:GetService("Player").LocalPlayer
+local Player = game:GetService("Players").LocalPlayer
 local Character = Player.Character or Player.CharacterAdded:Wait()
 
 if game.PlaceId == 136162036182779 then
