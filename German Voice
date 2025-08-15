@@ -150,8 +150,10 @@ local ButtonVipArea = Tab2:CreateButton({
 		Character.HumanoidRootPart.Anchored = true
 		Character.HumanoidRootPart.CFrame = CFrame.new(-3342.46558, 475.921356, -2286.17847)
 		task.wait(5)
-		game.Workspace:FindFirstChild("VipAreaField"):Destroy()
-		Character.HumanoidRootPart.CFrame = CFrame.new(-3342.46558, 475.921356, -2286.17847)
+		if game.Workspace:FindFirstChild("VipAreaField") then
+			game.Workspace:FindFirstChild("VipAreaField"):Destroy()
+		end
+		Character.HumanoidRootPart.CFrame = CFrame.new(-3260.46875, 534.050598, -2152.57593)
 		Character.HumanoidRootPart.Anchored = false
 	end,
 })
