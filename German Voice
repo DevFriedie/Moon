@@ -78,19 +78,19 @@ local ButtonEsp = Tab1:CreateButton({
 		for _, Player in pairs(game.Players:GetPlayers()) do
 			if Player.Name ~= game:GetService("Players").LocalPlayer.Name then
 				local Character = Player.Character
-
+				if Character and Character:FindFirstChild("Head") then
 				if not Character.Head:FindFirstChild("Esp") then
 					local BillboardGui = Instance.new("BillboardGui")
 					local TextLabel = Instance.new("TextLabel")
 					BillboardGui.Name = "Esp"
-					BillboardGui.Parent = Character
+					BillboardGui.Parent = Character.Head
 					BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 					BillboardGui.Active = true
 					BillboardGui.AlwaysOnTop = true
 					BillboardGui.LightInfluence = 1.000
 					BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
-					BillboardGui.Size = UDim2.new(5, 0, 2, 0)
-					BillboardGui.Adornee = Character
+					BillboardGui.Size = UDim2.new(0, 100, 0, 50)
+					BillboardGui.Adornee = Character.Head
 
 					TextLabel.Parent = BillboardGui
 					TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -110,9 +110,10 @@ local ButtonEsp = Tab1:CreateButton({
 				if not Character:FindFirstChild("Esp") then
 					local Highlight = Instance.new("Highlight")
 					Highlight.Name = "Esp"
-					Highlight.Parent = Character
+					Highlight.Parent = game:GetService("ReplicatedFirst")
 					Highlight.OutlineColor = Color3.fromRGB(255, 0, 0)
-					Highlight.Adornee = game:GetService("ReplicatedFirst")
+					Highlight.Adornee = Character
+				end
 				end
 			end
 		end
