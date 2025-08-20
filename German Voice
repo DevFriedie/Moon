@@ -121,7 +121,7 @@ local ButtonEsp = Tab1:CreateButton({
 	end,
 })
 
-local InputTpTo = Tab:CreateInput({
+local InputTpTo = Tab1:CreateInput({
 	Name = "Tp To",
 	CurrentValue = "",
 	PlaceholderText = "Input Placeholder",
