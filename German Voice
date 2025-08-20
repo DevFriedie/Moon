@@ -39,6 +39,7 @@ local Window = Rayfield:CreateWindow({
 
 --// Variables
 local Steal = false
+local TpToPlayer
 
 --// Functions
 
@@ -79,44 +80,77 @@ local ButtonEsp = Tab1:CreateButton({
 			if Player.Name ~= game:GetService("Players").LocalPlayer.Name then
 				local Character = Player.Character
 				if Character and Character:FindFirstChild("Head") then
-				if not Character.Head:FindFirstChild("Esp") then
-					local BillboardGui = Instance.new("BillboardGui")
-					local TextLabel = Instance.new("TextLabel")
-					BillboardGui.Name = "Esp"
-					BillboardGui.Parent = Character.Head
-					BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-					BillboardGui.Active = true
-					BillboardGui.AlwaysOnTop = true
-					BillboardGui.LightInfluence = 1.000
-					BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
-					BillboardGui.Size = UDim2.new(0, 100, 0, 50)
-					BillboardGui.Adornee = Character.Head
+					if not Character.Head:FindFirstChild("Esp") then
+						local BillboardGui = Instance.new("BillboardGui")
+						local TextLabel = Instance.new("TextLabel")
+						BillboardGui.Name = "Esp"
+						BillboardGui.Parent = Character.Head
+						BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+						BillboardGui.Active = true
+						BillboardGui.AlwaysOnTop = true
+						BillboardGui.LightInfluence = 1.000
+						BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
+						BillboardGui.Size = UDim2.new(0, 100, 0, 50)
+						BillboardGui.Adornee = Character.Head
 
-					TextLabel.Parent = BillboardGui
-					TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					TextLabel.BackgroundTransparency = 1.000
-					TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-					TextLabel.BorderSizePixel = 0
-					TextLabel.Size = UDim2.new(1, 0, 1, 0)
-					TextLabel.Font = Enum.Font.SourceSans
-					TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
-					TextLabel.TextScaled = true
-					TextLabel.TextSize = 14.000
-					TextLabel.TextStrokeTransparency = 0.500
-					TextLabel.TextWrapped = true
-					TextLabel.Text = Player.Name
-				end
+						TextLabel.Parent = BillboardGui
+						TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+						TextLabel.BackgroundTransparency = 1.000
+						TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+						TextLabel.BorderSizePixel = 0
+						TextLabel.Size = UDim2.new(1, 0, 1, 0)
+						TextLabel.Font = Enum.Font.SourceSans
+						TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+						TextLabel.TextScaled = true
+						TextLabel.TextSize = 14.000
+						TextLabel.TextStrokeTransparency = 0.500
+						TextLabel.TextWrapped = true
+						TextLabel.Text = Player.Name
+					end
 
-				if not Character:FindFirstChild("Esp") then
-					local Highlight = Instance.new("Highlight")
-					Highlight.Name = "Esp"
-					Highlight.Parent = game:GetService("ReplicatedFirst")
-					Highlight.OutlineColor = Color3.fromRGB(255, 0, 0)
-					Highlight.Adornee = Character
-				end
+					if not Character:FindFirstChild("Esp") then
+						local Highlight = Instance.new("Highlight")
+						Highlight.Name = "Esp"
+						Highlight.Parent = game:GetService("ReplicatedFirst")
+						Highlight.OutlineColor = Color3.fromRGB(255, 0, 0)
+						Highlight.Adornee = Character
+					end
 				end
 			end
 		end
+	end,
+})
+
+local InputTpTo = Tab:CreateInput({
+	Name = "Tp To",
+	CurrentValue = "",
+	PlaceholderText = "Input Placeholder",
+	RemoveTextAfterFocusLost = false,
+	Flag = "Input1",
+	Callback = function(Text)
+		TpToPlayer = Text
+	end,
+})
+
+local ButtonTpTo = Tab1:CreateButton({
+	Name = "Tp",
+	Callback = function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+			game.Players[TpToPlayer].Character.HumanoidRootPart.CFrame
+	end,
+})
+
+local ButtonFreeze = Tab1:CreateButton({
+	Name = "Freeze",
+	Callback = function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+	end,
+})
+
+local ButtonUnFreeze = Tab1:CreateButton({
+	Name = "UnFreeze",
+	Callback = function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 	end,
 })
 
