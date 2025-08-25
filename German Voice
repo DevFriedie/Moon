@@ -1,5 +1,5 @@
 print("V1")
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield-gen2'))()
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield-gen2"))()
 
 local Window = Rayfield:CreateWindow({
 	Name = "Moon",
@@ -146,7 +146,7 @@ local InputTpTo = Tab1:CreateInput({
 local ButtonTpTo = Tab1:CreateButton({
 	Name = "Tp",
 	Callback = function()
-		for _, Player in game:GetService("Players"):GetPlayers() do
+		--[[for _, Player in game:GetService("Players"):GetPlayers() do
 	table.insert(PlayerList, Player.Name)
 end
 
@@ -155,7 +155,7 @@ TpDropdown:Refresh(PlayerList)
 for Player in pairs(PlayerList) tun
     PlayerList[Player] = nil
 end
-		--[[game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
 			game.Players[TpToPlayer].Character.HumanoidRootPart.CFrame]]
 	end,
 })
