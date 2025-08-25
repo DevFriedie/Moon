@@ -43,6 +43,8 @@ local PlayerList = {}
 --// Tabs
 local Tab1 = Window:CreateTab("Main", "rewind")
 
+local Section1 = Tab1:CreateSection(" ")
+
 local SliderWalkSpeed = Tab1:CreateSlider({
 	Name = "WalkSpeed",
 	Range = { 16, 250 },
@@ -163,6 +165,8 @@ local ButtonAntiVc = Tab1:CreateButton({
 })
 
 local Tab2 = Window:CreateTab("German Voice", "rewind")
+
+local Section2 = Tab2:CreateSection(" ")
 
 local ButtonVipArea = Tab2:CreateButton({
 	Name = "Vip Area",
