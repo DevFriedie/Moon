@@ -128,7 +128,6 @@ local TpDropdown = Tab1:CreateDropdown({
 	Options = { "" },
 	CurrentOption = { "" },
 	MultipleOptions = false,
-	Flag = "",
 	Callback = function(Options)
 		print(Options)
 	end,
@@ -139,7 +138,6 @@ local InputTpTo = Tab1:CreateInput({
 	CurrentValue = "",
 	PlaceholderText = "Input Placeholder",
 	RemoveTextAfterFocusLost = false,
-	Flag = "Input1",
 	Callback = function(Text)
 		TpToPlayer = Text
 	end,
@@ -148,8 +146,17 @@ local InputTpTo = Tab1:CreateInput({
 local ButtonTpTo = Tab1:CreateButton({
 	Name = "Tp",
 	Callback = function()
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-			game.Players[TpToPlayer].Character.HumanoidRootPart.CFrame
+		for _, Player in game:GetService("Players"):GetPlayers() do
+	table.insert(PlayerList, Player.Name)
+end
+
+TpDropdown:Refresh(PlayerList)
+
+for Player in pairs(PlayerList) tun
+    PlayerList[Player] = nil
+end
+		--[[game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+			game.Players[TpToPlayer].Character.HumanoidRootPart.CFrame]]
 	end,
 })
 
@@ -205,13 +212,3 @@ local ButtonVipArea = Tab2:CreateButton({
 		Character.HumanoidRootPart.Anchored = false
 	end,
 })
-
---[[for _, Player in game:GetService("Players"):GetPlayers() do
-	table.insert(PlayerList, Player.Name)
-end
-
-TpDropdown:Refresh({PlayerList})
-
-for Player in pairs(PlayerList) tun
-    PlayerList[Player] = nil
-end]]
