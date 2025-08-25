@@ -1,4 +1,4 @@
-print("V - 0.3")
+print("V - 0.4")
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
@@ -39,7 +39,6 @@ local Window = Rayfield:CreateWindow({
 })
 
 --// Variables
-local PlayerList = {}
 
 --// Tabs
 local Tab1 = Window:CreateTab("Main", "rewind")
@@ -126,22 +125,21 @@ local TpDropdown = Tab1:CreateDropdown({
 	MultipleOptions = false,
 	Flag = "",
 	Callback = function(Options)
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Options[1]].Character.HumanoidRootPart.CFrame
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+			game.Players[Options[1]].Character.HumanoidRootPart.CFrame
 	end,
 })
 
 local TpResetButton = Tab1:CreateButton({
 	Name = "Tp Reset",
 	Callback = function()
+		local PlayerList = {}
+
 		for _, Player in game:GetService("Players"):GetPlayers() do
-	table.insert(PlayerList, Player.Name)
-end
+			table.insert(PlayerList, Player.Name)
+		end
 
-TpDropdown:Refresh(PlayerList)
-
-for Player in pairs(PlayerList) tun
-    PlayerList[Player] = nil
-end
+		TpDropdown:Refresh(PlayerList)
 	end,
 })
 
