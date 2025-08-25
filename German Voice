@@ -1,4 +1,4 @@
-print("V - 0.2")
+print("V - 0.3")
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
@@ -121,36 +121,19 @@ local ButtonEsp = Tab1:CreateButton({
 
 local TpDropdown = Tab1:CreateDropdown({
 	Name = "Tp",
-	Options = { "DevFriedie", "UhmTest2" },
-	CurrentOption = { "DevFriedieFake" },
+	Options = { "" },
+	CurrentOption = { "" },
 	MultipleOptions = false,
 	Flag = "",
 	Callback = function(Options)
-		--game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[CurrentOption].Character.HumanoidRootPart.CFrame
-		print(Options[1])
-		print(Options[2])
-		for l, i in ipairs(Options) do
-			print(l)
-			print(i)
-		end
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Options[1]].Character.HumanoidRootPart.CFrame
 	end,
 })
 
-local InputTpTo = Tab1:CreateInput({
-	Name = "Tp To",
-	CurrentValue = "",
-	PlaceholderText = "Input Placeholder",
-	RemoveTextAfterFocusLost = false,
-	Flag = "",
-	Callback = function(Text)
-		TpToPlayer = Text
-	end,
-})
-
-local ButtonTpTo = Tab1:CreateButton({
-	Name = "Tp",
+local TpResetButton = Tab1:CreateButton({
+	Name = "Tp Reset",
 	Callback = function()
-		--[[for _, Player in game:GetService("Players"):GetPlayers() do
+		for _, Player in game:GetService("Players"):GetPlayers() do
 	table.insert(PlayerList, Player.Name)
 end
 
@@ -159,8 +142,6 @@ TpDropdown:Refresh(PlayerList)
 for Player in pairs(PlayerList) tun
     PlayerList[Player] = nil
 end
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-			game.Players[TpToPlayer].Character.HumanoidRootPart.CFrame]]
 	end,
 })
 
