@@ -1,4 +1,4 @@
-print("V - 0.8")
+print("V - 0.9")
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
@@ -129,7 +129,12 @@ local TpDropdown = Tab1:CreateDropdown({
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
 				game.Players[Options[1]].Character.HumanoidRootPart.CFrame
 		end
+	end,
+})
 
+local TpUpdateButton = Tab1:CreateButton({
+	Name = "Tp Update",
+	Callback = function()
 		local PlayerList = {}
 
 		for _, Player in game:GetService("Players"):GetPlayers() do
@@ -142,8 +147,8 @@ local TpDropdown = Tab1:CreateDropdown({
 	end,
 })
 
-local ButtonAntiVc = Tab1:CreateButton({
-	Name = "Bypass Voice Chat Ban",
+local ButtonVc = Tab1:CreateButton({
+	Name = "Voice Chat",
 	Callback = function()
 		game:GetService("VoiceChatService"):joinVoice()
 	end,
