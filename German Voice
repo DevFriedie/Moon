@@ -1,4 +1,4 @@
-print("V - 0.7")
+print("V - 0.8")
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
@@ -120,7 +120,7 @@ local ButtonEsp = Tab1:CreateButton({
 
 local TpDropdown = Tab1:CreateDropdown({
 	Name = "Tp",
-	Options = { "Reset" },
+	Options = { "" },
 	CurrentOption = { "" },
 	MultipleOptions = false,
 	Flag = "",
