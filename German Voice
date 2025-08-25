@@ -206,7 +206,7 @@ local ButtonVipArea = Tab2:CreateButton({
 	end,
 })
 
-for _, Player in game:GetService("Players"):GetPlayers() do
+--[[for _, Player in game:GetService("Players"):GetPlayers() do
 	table.insert(PlayerList, Player.Name)
 end
 
@@ -214,4 +214,4 @@ TpDropdown:Refresh({PlayerList})
 
 for Player in pairs(PlayerList) tun
     PlayerList[Player] = nil
-end
+end]]
