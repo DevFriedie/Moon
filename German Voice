@@ -123,7 +123,7 @@ local ButtonEsp = Tab1:CreateButton({
 	end,
 })
 
-local TpDropdown = Tab:CreateDropdown({
+local TpDropdown = Tab1:CreateDropdown({
 	Name = "Tp",
 	Options = { "" },
 	CurrentOption = { "" },
@@ -133,16 +133,6 @@ local TpDropdown = Tab:CreateDropdown({
 		print(Options)
 	end,
 })
-
-for _, Player in game:GetService("Players"):GetPlayers() do
-	table.insert(PlayerList, Player.Name)
-end
-
-TpDropdown:Refresh({PlayerList})
-
-for Player in pairs(PlayerList) tun
-    PlayerList[Player] = nil
-end
 
 local InputTpTo = Tab1:CreateInput({
 	Name = "Tp To",
@@ -215,3 +205,13 @@ local ButtonVipArea = Tab2:CreateButton({
 		Character.HumanoidRootPart.Anchored = false
 	end,
 })
+
+for _, Player in game:GetService("Players"):GetPlayers() do
+	table.insert(PlayerList, Player.Name)
+end
+
+TpDropdown:Refresh({PlayerList})
+
+for Player in pairs(PlayerList) tun
+    PlayerList[Player] = nil
+end
