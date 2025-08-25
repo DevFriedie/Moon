@@ -120,12 +120,13 @@ local ButtonEsp = Tab1:CreateButton({
 
 local TpDropdown = Tab1:CreateDropdown({
 	Name = "Tp",
-	Options = { "" },
+	Options = { "DevFriedie" },
 	CurrentOption = { "" },
 	MultipleOptions = false,
 	Flag = "",
 	Callback = function(Options)
-		print(Options)
+		--game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[CurrentOption].Character.HumanoidRootPart.CFrame
+		print(CurrentOption)
 	end,
 })
 
@@ -143,7 +144,7 @@ local InputTpTo = Tab1:CreateInput({
 local ButtonTpTo = Tab1:CreateButton({
 	Name = "Tp",
 	Callback = function()
-		for _, Player in game:GetService("Players"):GetPlayers() do
+		--[[for _, Player in game:GetService("Players"):GetPlayers() do
 	table.insert(PlayerList, Player.Name)
 end
 
@@ -153,7 +154,7 @@ for Player in pairs(PlayerList) tun
     PlayerList[Player] = nil
 end
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-			game.Players[TpToPlayer].Character.HumanoidRootPart.CFrame
+			game.Players[TpToPlayer].Character.HumanoidRootPart.CFrame]]
 	end,
 })
 
