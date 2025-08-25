@@ -1,4 +1,4 @@
-print("V - 0.5")
+print("V - 0.6")
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
@@ -120,13 +120,15 @@ local ButtonEsp = Tab1:CreateButton({
 
 local TpDropdown = Tab1:CreateDropdown({
 	Name = "Tp",
-	Options = { "" },
+	Options = { "Reset" },
 	CurrentOption = { "" },
 	MultipleOptions = false,
 	Flag = "",
 	Callback = function(Options)
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-			game.Players[Options[1]].Character.HumanoidRootPart.CFrame
+		if game.Players:FindFirstChild(Options[1]) then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+				game.Players[Options[1]].Character.HumanoidRootPart.CFrame
+		end
 
 		local PlayerList = {}
 
