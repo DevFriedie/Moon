@@ -1,3 +1,4 @@
+print("V - 0.1")
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
@@ -126,7 +127,7 @@ local TpDropdown = Tab1:CreateDropdown({
 	Flag = "",
 	Callback = function(Options)
 		--game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[CurrentOption].Character.HumanoidRootPart.CFrame
-		print(CurrentOption)
+		print(TpDropdown.CurrentOption)
 	end,
 })
 
