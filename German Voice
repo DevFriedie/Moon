@@ -127,6 +127,8 @@ local TpDropdown = Tab1:CreateDropdown({
 	Flag = "",
 	Callback = function(Options)
 		--game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[CurrentOption].Character.HumanoidRootPart.CFrame
+		print(Options[1])
+		print(Options[2])
 		for l, i in ipairs(Options) do
 			print(l)
 			print(i)
