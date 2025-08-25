@@ -121,7 +121,7 @@ local ButtonEsp = Tab1:CreateButton({
 
 local TpDropdown = Tab1:CreateDropdown({
 	Name = "Tp",
-	Options = { "DevFriedie" },
+	Options = { "DevFriedie", "UhmTest2" },
 	CurrentOption = { "DevFriedieFake" },
 	MultipleOptions = false,
 	Flag = "",
