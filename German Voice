@@ -1,4 +1,4 @@
-print("V - 0.6")
+print("V - 0.7")
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
@@ -168,3 +168,11 @@ local ButtonVipArea = Tab2:CreateButton({
 		Character.HumanoidRootPart.Anchored = false
 	end,
 })
+
+local PlayerList = {}
+
+for _, Player in game:GetService("Players"):GetPlayers() do
+	table.insert(PlayerList, Player.Name)
+end
+
+TpDropdown:Refresh(PlayerList)
