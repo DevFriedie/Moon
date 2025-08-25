@@ -1,9 +1,8 @@
-print("V1")
-local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield-gen2"))()
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
 	Name = "Moon",
-	Icon = 0,
+	Icon = 18786578040,
 	LoadingTitle = "Moon",
 	LoadingSubtitle = "by Friedie",
 	ShowText = "Rayfield",
@@ -39,21 +38,15 @@ local Window = Rayfield:CreateWindow({
 })
 
 --// Variables
-local Steal = false
-local TpToPlayer
 local PlayerList = {}
-
---// Functions
 
 --// Tabs
 local Tab1 = Window:CreateTab("Main", "rewind")
 
-local Section1 = Tab1:CreateSection("Misc")
-
 local SliderWalkSpeed = Tab1:CreateSlider({
 	Name = "WalkSpeed",
 	Range = { 16, 250 },
-	Increment = 1,
+	Increment = 5,
 	Suffix = "WalkSpeed",
 	CurrentValue = 16,
 	Flag = "",
@@ -65,7 +58,7 @@ local SliderWalkSpeed = Tab1:CreateSlider({
 local SliderJumpPower = Tab1:CreateSlider({
 	Name = "JumpPower",
 	Range = { 50, 500 },
-	Increment = 1,
+	Increment = 5,
 	Suffix = "JumpPower",
 	CurrentValue = 50,
 	Flag = "",
@@ -128,6 +121,7 @@ local TpDropdown = Tab1:CreateDropdown({
 	Options = { "" },
 	CurrentOption = { "" },
 	MultipleOptions = false,
+	Flag = "",
 	Callback = function(Options)
 		print(Options)
 	end,
@@ -138,6 +132,7 @@ local InputTpTo = Tab1:CreateInput({
 	CurrentValue = "",
 	PlaceholderText = "Input Placeholder",
 	RemoveTextAfterFocusLost = false,
+	Flag = "",
 	Callback = function(Text)
 		TpToPlayer = Text
 	end,
@@ -160,20 +155,6 @@ end
 	end,
 })
 
-local ButtonFreeze = Tab1:CreateButton({
-	Name = "Freeze",
-	Callback = function()
-		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-	end,
-})
-
-local ButtonUnFreeze = Tab1:CreateButton({
-	Name = "UnFreeze",
-	Callback = function()
-		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-	end,
-})
-
 local ButtonAntiVc = Tab1:CreateButton({
 	Name = "Bypass Voice Chat Ban",
 	Callback = function()
@@ -181,21 +162,7 @@ local ButtonAntiVc = Tab1:CreateButton({
 	end,
 })
 
-local ButtonNoClip = Tab1:CreateButton({
-	Name = "NoClip",
-	Callback = function() end,
-})
-
-local ButtonDestroy = Tab1:CreateButton({
-	Name = "Destroy",
-	Callback = function()
-		Rayfield:Destroy()
-	end,
-})
-
 local Tab2 = Window:CreateTab("German Voice", "rewind")
-
-local Section2 = Tab2:CreateSection("Misc")
 
 local ButtonVipArea = Tab2:CreateButton({
 	Name = "Vip Area",
