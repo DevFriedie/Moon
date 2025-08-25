@@ -41,8 +41,20 @@ local Window = Rayfield:CreateWindow({
 --// Variables
 local Steal = false
 local TpToPlayer
+local PlayerList = {}
 
 --// Functions
+local function ResetTpDropdown()
+	for _, Player in game:GetService("Players"):GetPlayers() do
+	table.insert(PlayerList, Player.Name)
+end
+
+Dropdown:Refresh({PlayerList})
+
+for Player in pairs(PlayerList) tun
+    PlayerList[Player] = nil
+end
+end
 
 --// Tabs
 local Tab1 = Window:CreateTab("Main", "rewind")
@@ -121,6 +133,27 @@ local ButtonEsp = Tab1:CreateButton({
 		end
 	end,
 })
+
+local TpDropdown = Tab:CreateDropdown({
+	Name = "Tp",
+	Options = {  },
+	CurrentOption = { },
+	MultipleOptions = false,
+	Flag = "",
+	Callback = function(Options)
+		print(Options)
+	end,
+})
+
+for _, Player in game:GetService("Players"):GetPlayers() do
+	table.insert(PlayerList, Player.Name)
+end
+
+TpDropdown:Refresh({PlayerList})
+
+for Player in pairs(PlayerList) tun
+    PlayerList[Player] = nil
+end
 
 local InputTpTo = Tab1:CreateInput({
 	Name = "Tp To",
