@@ -1,4 +1,8 @@
-print("V - 0.9")
+repeat
+	task.wait()
+until game:IsLoaded()
+
+--// Rayfield
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
@@ -8,44 +12,16 @@ local Window = Rayfield:CreateWindow({
 	LoadingSubtitle = "by Friedie",
 	ShowText = "Rayfield",
 	Theme = "Default",
-
-	ToggleUIKeybind = "K",
-
-	DisableRayfieldPrompts = false,
-	DisableBuildWarnings = false,
-
-	ConfigurationSaving = {
-		Enabled = false,
-		FolderName = nil,
-		FileName = "Moon",
-	},
-
-	Discord = {
-		Enabled = false,
-		Invite = "noinvitelink",
-		RememberJoins = false,
-	},
-
-	KeySystem = false,
-	KeySettings = {
-		Title = "Untitled",
-		Subtitle = "Key System",
-		Note = "No method of obtaining the key is provided",
-		FileName = "Key",
-		SaveKey = true,
-		GrabKeyFromSite = false,
-		Key = { "Hello" },
-	},
 })
 
 --// Variables
+local Main = Window:CreateTab("Main", "rewind")
+local Game = Window:CreateTab("Game", "rewind")
+local Miscellaneous = Main:CreateSection("Miscellaneous")
+local Miscellaneous = Game:CreateSection("Miscellaneous")
 
---// Tabs
-local Tab1 = Window:CreateTab("Main", "rewind")
-
-local Section1 = Tab1:CreateSection("Miscellaneous")
-
-local SliderWalkSpeed = Tab1:CreateSlider({
+--// Scripts
+local SliderWalkSpeed = Main:CreateSlider({
 	Name = "WalkSpeed",
 	Range = { 16, 250 },
 	Increment = 5,
@@ -57,7 +33,7 @@ local SliderWalkSpeed = Tab1:CreateSlider({
 	end,
 })
 
-local SliderJumpPower = Tab1:CreateSlider({
+local SliderJumpPower = Main:CreateSlider({
 	Name = "JumpPower",
 	Range = { 50, 500 },
 	Increment = 5,
@@ -70,7 +46,7 @@ local SliderJumpPower = Tab1:CreateSlider({
 	end,
 })
 
-local ButtonEsp = Tab1:CreateButton({
+local ButtonEsp = Main:CreateButton({
 	Name = "Esp",
 	Callback = function()
 		for _, Player in pairs(game.Players:GetPlayers()) do
@@ -118,7 +94,7 @@ local ButtonEsp = Tab1:CreateButton({
 	end,
 })
 
-local TpDropdown = Tab1:CreateDropdown({
+local TpDropdown = Main:CreateDropdown({
 	Name = "Tp",
 	Options = { "" },
 	CurrentOption = { "" },
@@ -132,7 +108,7 @@ local TpDropdown = Tab1:CreateDropdown({
 	end,
 })
 
-local TpUpdateButton = Tab1:CreateButton({
+local TpUpdateButton = Main:CreateButton({
 	Name = "Tp Update",
 	Callback = function()
 		local PlayerList = {}
@@ -147,30 +123,10 @@ local TpUpdateButton = Tab1:CreateButton({
 	end,
 })
 
-local ButtonVc = Tab1:CreateButton({
+local ButtonVc = Main:CreateButton({
 	Name = "Voice Chat",
 	Callback = function()
 		game:GetService("VoiceChatService"):joinVoice()
-	end,
-})
-
-local Tab2 = Window:CreateTab("German Voice", "rewind")
-
-local Section2 = Tab2:CreateSection("Miscellaneous")
-
-local ButtonVipArea = Tab2:CreateButton({
-	Name = "Vip Area",
-	Callback = function()
-		local Player = game:GetService("Players").LocalPlayer
-		local Character = Player.Character
-		Character.HumanoidRootPart.Anchored = true
-		Character.HumanoidRootPart.CFrame = CFrame.new(-3342.46558, 475.921356, -2286.17847)
-		task.wait(5)
-		if game.Workspace:FindFirstChild("VipAreaField") then
-			game.Workspace:FindFirstChild("VipAreaField"):Destroy()
-		end
-		Character.HumanoidRootPart.CFrame = CFrame.new(-3260.46875, 534.050598, -2152.57593)
-		Character.HumanoidRootPart.Anchored = false
 	end,
 })
 
