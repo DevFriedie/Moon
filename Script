@@ -1,8 +1,8 @@
-local Player = game:GetService("Players").LocalPlayer
-local Character = Player.Character or Player.CharacterAdded:Wait()
-
+print("🌙")
 if game.PlaceId == 136162036182779 then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/DevFriedie/Moon/refs/heads/main/German%20Voice"))()
 elseif game.PlaceId == 109983668079237 then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/DevFriedie/Moon/refs/heads/main/Steal%20A%20Brainrot"))()
+elseif game.PlaceId == 79546208627805 then
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/DevFriedie/Moon/refs/heads/main/99%20Nights%20in%20the%20Forest"))()
 end
