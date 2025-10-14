@@ -1,3 +1,5 @@
+game.Workspace.StreamingEnabled = false
+
 repeat
 	task.wait()
 until game:IsLoaded()
@@ -14,18 +16,21 @@ if Rayfield then
 		Theme = "Default",
 	})
 
-	--// Variables
+	--// References
 	local Main = Window:CreateTab("Main", "rewind")
 	local Game = Window:CreateTab("Game", "rewind")
 	local Miscellaneous = Main:CreateSection("Miscellaneous")
 	local Miscellaneous = Game:CreateSection("Miscellaneous")
+
+	--// Tables
+	local ItemsList = {}
 	local PlayersList = {}
 
 	--// Scripts
 	local SliderWalkSpeed = Main:CreateSlider({
 		Name = "WalkSpeed",
 		Range = { 16, 250 },
-		Increment = 5,
+		Increment = 1,
 		Suffix = "WalkSpeed",
 		CurrentValue = 16,
 		Flag = "",
@@ -36,62 +41,14 @@ if Rayfield then
 
 	local SliderJumpPower = Main:CreateSlider({
 		Name = "JumpPower",
-		Range = { 50, 500 },
-		Increment = 5,
+		Range = { 50, 250 },
+		Increment = 1,
 		Suffix = "JumpPower",
 		CurrentValue = 50,
 		Flag = "",
 		Callback = function(Value)
 			game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
 			game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
-		end,
-	})
-
-	local ButtonEsp = Main:CreateButton({
-		Name = "Esp",
-		Callback = function()
-			for _, Player in pairs(game.Players:GetPlayers()) do
-				if Player.Name ~= game:GetService("Players").LocalPlayer.Name then
-					local Character = Player.Character
-					if Character and Character:FindFirstChild("Head") then
-						if not Character.Head:FindFirstChild("Esp") then
-							local BillboardGui = Instance.new("BillboardGui")
-							local TextLabel = Instance.new("TextLabel")
-							BillboardGui.Name = "Esp"
-							BillboardGui.Parent = Character.Head
-							BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-							BillboardGui.Active = true
-							BillboardGui.AlwaysOnTop = true
-							BillboardGui.LightInfluence = 1.000
-							BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
-							BillboardGui.Size = UDim2.new(0, 100, 0, 50)
-							BillboardGui.Adornee = Character.Head
-
-							TextLabel.Parent = BillboardGui
-							TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-							TextLabel.BackgroundTransparency = 1.000
-							TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-							TextLabel.BorderSizePixel = 0
-							TextLabel.Size = UDim2.new(1, 0, 1, 0)
-							TextLabel.Font = Enum.Font.SourceSans
-							TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
-							TextLabel.TextScaled = true
-							TextLabel.TextSize = 14.000
-							TextLabel.TextStrokeTransparency = 0.500
-							TextLabel.TextWrapped = true
-							TextLabel.Text = Player.Name
-						end
-
-						if not Character:FindFirstChild("Esp") then
-							local Highlight = Instance.new("Highlight")
-							Highlight.Name = "Esp"
-							Highlight.Parent = game:GetService("ReplicatedFirst")
-							Highlight.OutlineColor = Color3.fromRGB(255, 0, 0)
-							Highlight.Adornee = Character
-						end
-					end
-				end
-			end
 		end,
 	})
 
@@ -102,44 +59,141 @@ if Rayfield then
 		MultipleOptions = false,
 		Flag = "",
 		Callback = function(Options)
-			if Options then
-				print(Options)
+			if Options[1] then
+				if game.Players[Options[1]] then
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+						game.Players[Options[1]].Character.HumanoidRootPart.CFrame
+				end
 			end
 		end,
 	})
 
-	local ButtonVoiceChat = Main:CreateButton({
-		Name = "Voice Chat",
-		Callback = function()
-			game:GetService("VoiceChatService"):joinVoice()
-		end,
-	})
-
 	local ButtonDestroy = Main:CreateButton({
-		Name = "Voice Chat",
+		Name = "Destroy",
 		Callback = function()
 			Rayfield:Destroy()
 		end,
 	})
 
+	local ButtonFuel = Game:CreateButton({
+		Name = "Fuel",
+		Callback = function()
+			task.spawn(function()
+				for i, Model in ipairs(game.Workspace.Items:GetChildren()) do
+					task.spawn(function()
+						if Model:GetAttribute("BurnFuel") then
+							game:GetService("ReplicatedStorage").RemoteEvents.RequestStartDraggingItem:FireServer(Model)
+							task.wait(0.25)
+							Model.PrimaryPart.CFrame = game.Workspace.Map.Campground.MainFire.Center.CFrame + Vector3.new(0, 20, 0)
+							task.wait(0.25)
+							game:GetService("ReplicatedStorage").RemoteEvents.StopDraggingItem:FireServer(Model)
+							game.Debris:AddItem(Model, 10)
+						end
+					end)
+				end
+			end)
+		end,
+	})
+
+	local ButtonCraft = Game:CreateButton({
+		Name = "Craft",
+		Callback = function()
+			task.spawn(function()
+				for i, Model in ipairs(game.Workspace.Items:GetChildren()) do
+					task.spawn(function()
+						if Model.Name == "Log" or Model:GetAttribute("Scrappable") or Model.Name == "Cultist Gem" then
+							game:GetService("ReplicatedStorage").RemoteEvents.RequestStartDraggingItem:FireServer(Model)
+							task.wait(0.25)
+							Model.PrimaryPart.CFrame = game.Workspace.Map.Campground.CraftingBench.TouchZone.CFrame + Vector3.new(0, 3, -2)
+							task.wait(0.25)
+							game:GetService("ReplicatedStorage").RemoteEvents.StopDraggingItem:FireServer(Model)
+							game.Debris:AddItem(Model, 10)
+						end
+					end)
+				end
+			end)
+		end,
+	})
+
+	local DropdownItem = Game:CreateDropdown({
+		Name = "Item",
+		Options = { "" },
+		CurrentOption = { "" },
+		MultipleOptions = false,
+		Flag = "",
+		Callback = function(Options)
+			if Options[1] then
+				task.spawn(function()
+					for i, Model in ipairs(game.Workspace.Items:GetChildren()) do
+						task.spawn(function()
+							if Model.PrimaryPart and Model.Name == Options[1] then
+								game:GetService("ReplicatedStorage").RemoteEvents.RequestStartDraggingItem:FireServer(Model)
+								task.wait(0.25)
+								Model.PrimaryPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+								task.wait(0.25)
+								game:GetService("ReplicatedStorage").RemoteEvents.StopDraggingItem:FireServer(Model)
+							end
+						end)
+					end
+				end)
+			end
+		end,
+	})
+
+	local ButtonInvincible = Game:CreateButton({
+		Name = "Invincible",
+		Callback = function()
+			task.spawn(function()
+				while task.wait(10) do
+					game:GetService("ReplicatedStorage").RemoteEvents.DamagePlayer:FireServer(-math.huge)
+				end
+			end)
+		end,
+	})
+
+	task.spawn(function()
+		for i, Player in game:GetService("Players"):GetPlayers() do
+			if Player.Name ~= game.Players.LocalPlayer.Name and not table.find(PlayersList, Player.Name) then
+				table.insert(PlayersList, Player.Name)
+				DropdownTeleport:Refresh(PlayersList)
+			end
+		end
+	end)
+
 	game:GetService("Players").PlayerAdded:Connect(function(Player: Player)
-		table.insert(PlayersList, Player.Name)
-		DropdownTeleport:Refresh(PlayersList)
-		DropdownTeleport:Set("")
-		print("Teleport Added: " .. Player.Name)
+		if Player.Name ~= game.Players.LocalPlayer.Name and not table.find(PlayersList, Player.Name) then
+			table.insert(PlayersList, Player.Name)
+			DropdownTeleport:Refresh(PlayersList)
+		end
 	end)
 
 	game:GetService("Players").PlayerRemoving:Connect(function(Player: Player)
-		table.remove(PlayersList, table.find(PlayersList, Player.Name))
-		DropdownTeleport:Refresh(PlayersList)
-		DropdownTeleport:Set("")
-		print("Teleport Removed: " .. Player.Name)
+		if table.find(PlayersList, Player.Name) then
+			table.remove(PlayersList, table.find(PlayersList, Player.Name))
+			DropdownTeleport:Refresh(PlayersList)
+		end
 	end)
 
-	for i, Player in game:GetService("Players"):GetPlayers() do
-		table.insert(PlayersList, Player.Name)
-		DropdownTeleport:Refresh(PlayersList)
-		DropdownTeleport:Set("")
-		print("Teleport Added: " .. Player.Name)
-	end
+	task.spawn(function()
+		for i, Model in ipairs(game.Workspace.Items:GetChildren()) do
+			if not table.find(ItemsList, Model.Name) then
+				table.insert(ItemsList, Model.Name)
+				DropdownItem:Refresh(ItemsList)
+			end
+		end
+	end)
+
+	game.Workspace.Items.ChildAdded:Connect(function(Model : Model)
+		if not table.find(ItemsList, Model.Name) then
+			table.insert(ItemsList, Model.Name)
+			DropdownItem:Refresh(ItemsList)
+		end
+	end)
+
+	game.Workspace.Items.ChildRemoved:Connect(function(Model : Model)
+		if table.find(ItemsList, Model.Name) then
+			table.remove(ItemsList, table.find(ItemsList, Model.Name))
+			DropdownItem:Refresh(ItemsList)
+		end
+	end)
 end
