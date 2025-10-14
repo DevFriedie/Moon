@@ -3,7 +3,7 @@ local PlaceIds= {
 	109983668079237 = "https://raw.githubusercontent.com/Moon-0811/Moon/refs/heads/main/Steal%20A%20Brainrot",
 }
 task.spawn(function()
-	for Id, String in ipairs(PlaceIds) do 
+	for Id, String in pairs(PlaceIds) do 
 		if game.PlaceId == Id then 
 			loadstring(game:HttpGet(String), true)()
 		end
