@@ -1,6 +1,6 @@
 local PlaceIds= {
-	79546208627805 = "https://raw.githubusercontent.com/Moon-0811/Moon/refs/heads/main/99%20Nights%20in%20the%20Forest",
-	109983668079237 = "https://raw.githubusercontent.com/Moon-0811/Moon/refs/heads/main/Steal%20A%20Brainrot",
+	[79546208627805] = "https://raw.githubusercontent.com/Moon-0811/Moon/refs/heads/main/99%20Nights%20in%20the%20Forest",
+	[109983668079237] = "https://raw.githubusercontent.com/Moon-0811/Moon/refs/heads/main/Steal%20A%20Brainrot",
 }
 task.spawn(function()
 	for Id, String in pairs(PlaceIds) do 
