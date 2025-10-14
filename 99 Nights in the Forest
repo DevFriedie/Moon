@@ -1,8 +1,4 @@
-game.Workspace.StreamingEnabled = false
-
-repeat
-	task.wait()
-until game:IsLoaded()
+repeat task.wait() until game:IsLoaded()
 
 --// Rayfield
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"), true)()
@@ -16,15 +12,23 @@ if Rayfield then
 		Theme = "Default",
 	})
 
+    --// Services
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local TweenService = game:GetService("TweenService")
+    local Debris = game:GetService("Debris")
+    local Players = game:GetService("Players")
+
 	--// References
 	local Main = Window:CreateTab("Main", "rewind")
 	local Game = Window:CreateTab("Game", "rewind")
 	local Miscellaneous = Main:CreateSection("Miscellaneous")
 	local Miscellaneous = Game:CreateSection("Miscellaneous")
 
-	--// Tables
-	local ItemsList = {}
-	local PlayersList = {}
+	--// Player & Character
+	local LocalPlayer = Players.LocalPlayer
+	local LocalCharacter = Player.Character or Player.CharacterAdded:Wait()
+	local LocalHumanoid = Character:WaitForChild("Humanoid")
+	local LocalHumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
 
 	--// Scripts
 	local SliderWalkSpeed = Main:CreateSlider({
@@ -35,7 +39,7 @@ if Rayfield then
 		CurrentValue = 16,
 		Flag = "",
 		Callback = function(Value)
-			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+			LocalHumanoid.WalkSpeed = Value
 		end,
 	})
 
@@ -47,8 +51,8 @@ if Rayfield then
 		CurrentValue = 50,
 		Flag = "",
 		Callback = function(Value)
-			game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
-			game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+			LocalHumanoid.UseJumpPower = true
+			LocalHumanoid.JumpPower = Value
 		end,
 	})
 
@@ -60,9 +64,8 @@ if Rayfield then
 		Flag = "",
 		Callback = function(Options)
 			if Options[1] then
-				if game.Players[Options[1]] then
-					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-						game.Players[Options[1]].Character.HumanoidRootPart.CFrame
+				if Players[Options[1]] then
+					LocalHumanoidRootPart.CFrame = Players[Options[1]].Character.HumanoidRootPart.CFrame
 				end
 			end
 		end,
@@ -129,7 +132,7 @@ if Rayfield then
 							if Model.PrimaryPart and Model.Name == Options[1] then
 								game:GetService("ReplicatedStorage").RemoteEvents.RequestStartDraggingItem:FireServer(Model)
 								task.wait(0.25)
-								Model.PrimaryPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+								Model.PrimaryPart.CFrame = LocalHumanoidRootPart.CFrame
 								task.wait(0.25)
 								game:GetService("ReplicatedStorage").RemoteEvents.StopDraggingItem:FireServer(Model)
 							end
@@ -137,6 +140,21 @@ if Rayfield then
 					end
 				end)
 			end
+		end,
+	})
+
+	local ButtonItemRefresh = Game:CreateButton({
+		Name = "Refresh",
+		Callback = function()
+			task.spawn(function()
+				local Table = {}
+				for i, Model in ipairs(game.Workspace.Items:GetChildren()) do
+					if not table.find(Table, Model.Name) then
+					    table.insert(Table, Model.Name)
+					end
+				end
+				DropdownItem:Refresh(Table)
+			end)
 		end,
 	})
 
@@ -152,48 +170,22 @@ if Rayfield then
 	})
 
 	task.spawn(function()
+		local Table = {}
 		for i, Player in game:GetService("Players"):GetPlayers() do
-			if Player.Name ~= game.Players.LocalPlayer.Name and not table.find(PlayersList, Player.Name) then
-				table.insert(PlayersList, Player.Name)
-				DropdownTeleport:Refresh(PlayersList)
+			if not table.find(Table, Player.Name) and Player.Name ~= LocalPlayer.Name then
+				table.insert(Table, Player.Name)
 			end
 		end
-	end)
-
-	game:GetService("Players").PlayerAdded:Connect(function(Player: Player)
-		if Player.Name ~= game.Players.LocalPlayer.Name and not table.find(PlayersList, Player.Name) then
-			table.insert(PlayersList, Player.Name)
-			DropdownTeleport:Refresh(PlayersList)
-		end
-	end)
-
-	game:GetService("Players").PlayerRemoving:Connect(function(Player: Player)
-		if table.find(PlayersList, Player.Name) then
-			table.remove(PlayersList, table.find(PlayersList, Player.Name))
-			DropdownTeleport:Refresh(PlayersList)
-		end
+		DropdownTeleport:Refresh(Table)
 	end)
 
 	task.spawn(function()
+		local Table = {}
 		for i, Model in ipairs(game.Workspace.Items:GetChildren()) do
-			if not table.find(ItemsList, Model.Name) then
-				table.insert(ItemsList, Model.Name)
-				DropdownItem:Refresh(ItemsList)
+			if not table.find(Table, Model.Name) then
+			    table.insert(Table, Model.Name)
 			end
 		end
-	end)
-
-	game.Workspace.Items.ChildAdded:Connect(function(Model : Model)
-		if not table.find(ItemsList, Model.Name) then
-			table.insert(ItemsList, Model.Name)
-			DropdownItem:Refresh(ItemsList)
-		end
-	end)
-
-	game.Workspace.Items.ChildRemoved:Connect(function(Model : Model)
-		if table.find(ItemsList, Model.Name) then
-			table.remove(ItemsList, table.find(ItemsList, Model.Name))
-			DropdownItem:Refresh(ItemsList)
-		end
+		DropdownItem:Refresh(Table)
 	end)
 end
